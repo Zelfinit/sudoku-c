@@ -32,7 +32,7 @@ static const CommandEntry COMMANDS[] = {
 const CommandEntry *command_table(size_t *count) {
     /* STUDENT TODO 7: Expose the command table and its element count. */
     if (count != NULL) {
-        *count = 0;
+        *count = sizeof(COMMANDS) / sizeof(COMMANDS[0]);
     }
     return COMMANDS;
 }
@@ -243,10 +243,14 @@ int command_dispatch(SudokuGame *game, char *input, FILE *output) {
     commands = command_table(&command_count);
 
     /* STUDENT TODO 7: Locate the named command and invoke its handler. */
-    (void)game;
-    (void)arguments;
-    (void)commands;
-    (void)command_count;
-    fprintf(output, "Command dispatch is not implemented.\n");
+    for (size_t i = 0; i < command_count; i++)
+    {
+        if (strcmp(commands[i].name, command_name) == 0)
+        {
+            return commands[i].handler(game, arguments, output);
+        }
+    }
+    
+    fprintf(output, "Unknown command");
     return 1;
 }

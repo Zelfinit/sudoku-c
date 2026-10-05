@@ -32,7 +32,7 @@ SudokuBoard *board_clone(const SudokuBoard *source) {
         return NULL;
     }
     SudokuBoard *clone = board_create();
-    if (clone==NULL||clone->cells==NULL){
+    if (clone==NULL){
         return NULL;
     }
     if (!board_copy(clone, source))
